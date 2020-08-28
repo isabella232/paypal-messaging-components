@@ -1,7 +1,13 @@
 if [[ "$DIRTY_SNAPSHOTS" != "1" ]]; then
     npm run test:func
 
+    echo ''
+    echo 'DIFF FILES FOUND'
+    find ./tests/functional/ -type f -name '*png' | grep -h __diff_output__
+    echo ''
+    echo 'ORIGINAL AND DIFF PNG FILES FOUND'
     find ./tests/functional/ -type f -name '*png'
+    echo ''
 
     node ./tests/functional/utils/collectDiffs.js
 elif [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ "$TRAVIS_BRANCH" = "develop" ]]; then
